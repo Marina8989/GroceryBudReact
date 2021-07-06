@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import List from './List';
 import Alert from './Alert';
 
@@ -11,17 +11,42 @@ function App() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('clicked');
+        if(!name) {
+          showAlert(true, 'Please enter text', 'danger');
+        }else if(name && isEditing) {
+            //deal with edit
+        }else {
+            showAlert(true, 'Item added to the list', 'success');
+            const newItem = {id: new Date().getTime().toString(), title: name};
+            setList([...list, newItem]);
+            setName('');
+        }
     }
+
+    const showAlert = (show=false, msg='', type='') => {
+         setAlert({show,msg,type});
+    }
+
+    const clearList = () => {
+        showAlert(true, 'empty list', 'danger');
+        setList([]);
+    }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
-              {alert.show ? <Alert /> : null}
+              {alert.show ? <Alert {...alert} removeAlert={showAlert}/> : null}
                 <h3>Grocery Bud</h3>
-                <input type="text"  />
+                <input type="text"  placeholder="e.g. eggs" value={name} onChange={(e) => setName(e.target.value)}/>
+                <button type="submit">{isEditing ? 'edit' : 'submit'}</button>
             </form>
-            <List />
-            <button type="button">Clear Items</button>
+            {list.length > 0 && (
+                <div>
+                <List items={list} />
+                <button onClick={clearList}>Clear Items</button>
+                </div>
+            )}
+            
         </div>
     )
 }
