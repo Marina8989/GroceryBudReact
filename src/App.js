@@ -12,7 +12,16 @@ function App() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('hello');
+        if(!name) {
+           // display alert
+        }else if(name && isEditing) {
+          // display show
+        }else {
+            //display show
+            const newItem = {id: new Date().getTime().toString(), title: name};
+            setList([...list, newItem]);
+            setName('');
+        }
     }
     return (
         <div>
@@ -22,7 +31,7 @@ function App() {
               <input type='text' placeholder="e.g. eggs" value={name} onChange={(e) => setName(e.target.value)}/>
               <button type="submit">{isEditing ? 'edit' : 'add'}</button>
           </form>
-          <List />
+          <List items={list}/>
           <button>Clear All</button>
         </div>
     )

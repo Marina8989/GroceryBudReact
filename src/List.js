@@ -1,10 +1,17 @@
 import React from 'react';
 import { FaEdit, FaTrash} from 'react-icons/fa';
 
-const List = () => {
+const List = ({items}) => {
     return (
         <div>
-           <h2>List...</h2>
+           {items.map(item =>{
+               const {id, title} = item;
+               return (
+                   <div key={id}>
+                     <p>{title}</p>
+                   </div>
+               )
+           })}
         </div>
     )
 }
