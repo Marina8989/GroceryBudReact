@@ -9,6 +9,8 @@ const List = ({items}) => {
                return (
                    <div key={id}>
                      <p>{title}</p>
+                     <button type="button"><FaEdit /></button>
+                     <button type="button"><FaTrash /></button>
                    </div>
                )
            })}
