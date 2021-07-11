@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 
-const Alert = () => {
+const Alert = ({msg, type}) => {
     return (
         <div>
-            <p>Alert...</p>
+            <p className={`alert alert-${type}`}>{msg}</p>
         </div>
     )
 }
